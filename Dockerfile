@@ -20,11 +20,10 @@ RUN npm install -g pnpm@10
 WORKDIR /app
 ENV NODE_ENV production
 
-# Sécurité : on garde les bonnes pratiques
+# Sécurité
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# On copie tout ce qui est nécessaire pour un "pnpm start" classique
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
