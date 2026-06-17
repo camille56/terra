@@ -4,9 +4,24 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      # On s'arrête à l'étape 'deps' du Dockerfile, qui installe juste les dépendances.
+      # On ne veut pas 'build' ou 'run' en production pour le développement.
+      target: deps
     ports:
       - "3000:3000"
+    # On monte le code local dans le conteneur pour avoir le hot-reload
+    volumes:
+      - .:/app
+      # On s'assure que les node_modules du conteneur ne sont pas écrasés par un dossier local
+      - /app/node_modules
+      - /app/.next
+    # On force la commande de développement
+    command: pnpm dev
+    environment:
+      # Nécessaire pour que Next.js détecte les changements de fichiers dans Docker
+      - WATCHPACK_POLLING=true
     restart: unless-stopped
+
   # --- SERVICE MINIO ---
   minio:
     image: minio/minio

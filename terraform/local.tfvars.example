@@ -1,0 +1,12 @@
+# Environnement local : MinIO via docker-compose (voir docker-compose.yml).
+# Ces identifiants sont ceux du MinIO local, pas des secrets réels : ils peuvent être commités.
+
+s3_access_key        = "minioadmin"
+s3_secret_key        = "minioadmin_password"
+s3_region            = "us-east-1"
+s3_endpoint          = "http://localhost:9000"
+s3_use_path_style    = true
+skip_aws_api_checks  = true
+
+bucket_main   = "app-data-main"
+bucket_backup = "app-data-backup"

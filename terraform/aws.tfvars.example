@@ -1,0 +1,17 @@
+# Environnement AWS (ou tout S3 réel) : laisser s3_endpoint vide pour utiliser
+# l'endpoint régional par défaut du provider, et désactiver les bypass IAM/metadata
+# qui n'ont de sens que face à un émulateur S3 local comme MinIO.
+#
+# Ne JAMAIS mettre de vraies clés AWS dans ce fichier ni dans une copie commitée.
+# Définir s3_access_key / s3_secret_key via des variables d'environnement à la place :
+#   export TF_VAR_s3_access_key="..."
+#   export TF_VAR_s3_secret_key="..."
+# puis lancer : terraform apply -var-file=aws.tfvars
+
+s3_region           = "eu-west-3"
+s3_endpoint         = ""
+s3_use_path_style   = false
+skip_aws_api_checks = false
+
+bucket_main   = "app-data-main"
+bucket_backup = "app-data-backup"
